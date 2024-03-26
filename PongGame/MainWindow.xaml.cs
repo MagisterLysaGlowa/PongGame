@@ -32,9 +32,9 @@ namespace PongGame
             ball =
                 new Ball(10, 10, MainCanavs);
             player_mouse =
-                new Player(MainCanavs, 10, 100, new SolidColorBrush(Colors.White), false);
+                new Player(MainCanavs, 12, 100, new SolidColorBrush(Colors.Yellow), false);
             player_keyboard =
-                new Player(MainCanavs, 10, 100, new SolidColorBrush(Colors.White), true);
+                new Player(MainCanavs, 12, 100, new SolidColorBrush(Colors.Blue), true);
 
             //Obsługa FPS
             game_timer = new DispatcherTimer();
@@ -81,6 +81,19 @@ namespace PongGame
         {
             KeyboardPlayer.Content = player_keyboard.Points.ToString();
             MousePlayer.Content = player_mouse.Points.ToString();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Mouse.GetPosition(this).Y + player_mouse.Height >= MainCanavs.Height)
+                return;
+            player_mouse.Y = Mouse.GetPosition(this).Y;
+            player_mouse.Draw();
         }
     }
 }
