@@ -30,7 +30,7 @@ namespace PongGame
             //Utworzenie podstawowych obiektów
 
             ball =
-                new Ball(10, 10, MainCanavs);
+                new Ball(15, 15, MainCanavs);
             player_mouse =
                 new Player(MainCanavs, 12, 100, new SolidColorBrush(Colors.Yellow), false);
             player_keyboard =
@@ -38,7 +38,7 @@ namespace PongGame
 
             //Obsługa FPS
             game_timer = new DispatcherTimer();
-            game_timer.Interval = TimeSpan.FromMilliseconds(16);
+            game_timer.Interval = TimeSpan.FromMilliseconds(20);
             game_timer.Tick += Frame_Tick;
             game_timer.Start();
         }
@@ -85,7 +85,30 @@ namespace PongGame
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    this.Close();
+                    break;
+                case Key.W:
+                    if (player_keyboard.Y <= 0)
+                        return;
+                    player_keyboard.Y -= 15;
+                    player_keyboard.Draw();
+                    break;
+                case Key.S:
+                    if (player_keyboard.Y + player_keyboard.Height >= MainCanavs.Height)
+                        return;
+                    player_keyboard.Y += 15;
+                    player_keyboard.Draw();
+                    break;
+                case Key.R:
+                    player_mouse.Reset();
+                    player_keyboard.Reset();
+                    ball.Reset();
+                    UpdatePlayerScores();
+                    break;
+            }
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)

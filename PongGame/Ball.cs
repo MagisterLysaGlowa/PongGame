@@ -60,7 +60,7 @@ namespace PongGame
             X = Canvas.Width / 2 - Width / 2;
             Y = Canvas.Height / 2 - Height / 2;
             Random random = new Random();
-            Speed = 3f;
+            Speed = 6f;
             DirectionX = random.Next(1, 30) % 2 == 0 ? 1 : -1;
             DirectionY = random.Next(1, 30) % 2 == 0 ? 1 : -1;
             Random r = new Random();
