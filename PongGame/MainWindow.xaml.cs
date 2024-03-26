@@ -36,6 +36,53 @@ namespace PongGame
             player_keyboard =
                 new Player(MainCanavs, 10, 100, new SolidColorBrush(Colors.White), true);
 
+            //Obsługa FPS
+            game_timer = new DispatcherTimer();
+            game_timer.Interval = TimeSpan.FromMilliseconds(16);
+            game_timer.Tick += Frame_Tick;
+            game_timer.Start();
+        }
+
+        private void Frame_Tick(object? sender, EventArgs e)
+        {
+            if (ball.X <= 0)
+            {
+                player_mouse.Points += 1;
+                ball.Reset();
+            }
+            if (ball.X >= ball.Canvas.Width)
+            {
+                player_keyboard.Points += 1;
+                ball.Reset();
+            }
+
+            //Obliczenia pozycji piłki dla gracza na klawiaturze
+            if (ball.Y >= player_keyboard.Y
+                && ball.Y <= player_keyboard.Y + player_keyboard.Height
+                && ball.X <= player_keyboard.X + player_keyboard.Width
+                && ball.X >= player_keyboard.X)
+            {
+                ball.DirectionX *= -1;
+            }
+            //Obliczenia pozycji piłki dla gracza na myszce
+            if (ball.Y >= player_mouse.Y
+                && ball.Y <= player_mouse.Y + player_mouse.Height
+                && ball.X >= player_mouse.X - ball.Width
+                && ball.X <= player_mouse.X + player_mouse.Width)
+            {
+                ball.DirectionX *= -1;
+            }
+            ball.Move();
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }
