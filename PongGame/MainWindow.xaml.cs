@@ -48,11 +48,13 @@ namespace PongGame
             if (ball.X <= 0)
             {
                 player_mouse.Points += 1;
+                UpdatePlayerScores();
                 ball.Reset();
             }
             if (ball.X >= ball.Canvas.Width)
             {
                 player_keyboard.Points += 1;
+                UpdatePlayerScores();
                 ball.Reset();
             }
 
@@ -75,14 +77,10 @@ namespace PongGame
             ball.Move();
         }
 
-        private void Window_MouseMove(object sender, MouseEventArgs e)
+        private void UpdatePlayerScores()
         {
-
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-
+            KeyboardPlayer.Content = player_keyboard.Points.ToString();
+            MousePlayer.Content = player_mouse.Points.ToString();
         }
     }
 }
